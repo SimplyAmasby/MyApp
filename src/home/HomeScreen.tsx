@@ -77,7 +77,7 @@ export const HomeScreen = () => {
                 updateType: ReducerActionType.UPDATE_STATE,
                 payload: data
             })
-            showToast('success', 'Profile Loaded!');
+            if(data.height > 0 || data.weight > 0)  showToast('success', 'Profile Loaded!');
         }
         loadProfileData();
     }, [])
@@ -89,7 +89,6 @@ export const HomeScreen = () => {
                 onSave={handleSave}
                 profile={state}
             />
-            <Toast />
         </>
     )
 

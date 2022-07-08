@@ -17,7 +17,7 @@ import {
   Text, useColorScheme,
   View
 } from 'react-native';
-
+import Toast from "react-native-toast-message";
 import {
   Colors
 } from 'react-native/Libraries/NewAppScreen';
@@ -40,6 +40,7 @@ const App = () => {
             backgroundColor: Colors.white,
           }}>
           <HomeScreen />
+          <Toast />
         </View>
       </ScrollView>
     </SafeAreaView>
