@@ -2,23 +2,23 @@ import { useNumberHelper } from "../src/utilities/useNumberHelper";
 const [convertHeight, convertWeight] = useNumberHelper();
 
 test('convert 1 pound to kg', () => {
-    const isMetric = false;
-    expect(convertWeight(1, isMetric)).toBe(0.45);
+    const toMetric = true;
+    expect(convertWeight(1, toMetric)).toBe(0.45);
 });
 
 test('convert 10 pound to kg', () => {
-    const isMetric = false;
-    expect(convertWeight(10, isMetric)).toBe(4.54);
+    const toMetric = true;
+    expect(convertWeight(10, toMetric)).toBe(4.54);
 });
 
 test('convert 1 kg to pound', () => {
-    const isMetric = true;
-    expect(convertWeight(1, isMetric)).toBe(2.2);
+    const toMetric = false;
+    expect(convertWeight(1, toMetric)).toBe(2.2);
 });
 
 test('convert 10 kg to pound', () => {
-    const isMetric = true;
-    expect(convertWeight(10, isMetric)).toBe(22.05);
+    const toMetric = false;
+    expect(convertWeight(10, toMetric)).toBe(22.05);
 });
 
 

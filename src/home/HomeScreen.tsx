@@ -1,4 +1,4 @@
-import React, { Reducer, useEffect, useReducer } from "react";
+import React, { Reducer, useEffect, useReducer, useState } from "react";
 import { ProfileForm } from "../profile/ProfileForm";
 import Toast from "react-native-toast-message";
 import { profileClient } from "../profile/ProfileClient";
@@ -21,12 +21,12 @@ export const HomeScreen = () => {
     }
 
     const calculateImperialHeight = (currentHeight: number, newValue: number, isInches: boolean): number => {
-        const currentFeet = Math.floor(currentHeight);  
-        const currentInches = (currentHeight % 1) * 12;
-        if(isInches) {
-            const n = Number(currentFeet + (newValue / 12))
+        const currentFeet = Math.floor(currentHeight);
+        const currentInches = currentHeight % 1;
+        if (isInches) {
+            const n = Number(currentFeet + ((newValue > 11 ? 11 : newValue) / 12))
             return Number(n.toFixed(2));
-        } 
+        }
 
         return newValue + currentInches;
     }
@@ -41,8 +41,7 @@ export const HomeScreen = () => {
                     [action.fieldName]: Number(action.payload) ? Number(action.payload) : 0
                 }
             case ReducerActionType.IMPERIAL_HEIGHT_CHANGE:
-                const value = Number(action.payload) ? Number(action.payload) : 0
-                
+                const value = Number(action.payload) ? Number(action.payload) : 0;
                 return { ...state, height: calculateImperialHeight(state.height, value, action.fieldName === 'inches') }
             case ReducerActionType.HANDLE_PICKER_CHANGE:
                 const isMetric = action.payload === Units.Metric;
@@ -52,7 +51,8 @@ export const HomeScreen = () => {
                     units: isMetric ? Units.Metric : Units.Imperial
                 }
             case ReducerActionType.UPDATE_STATE:
-                return action.payload as Profile;
+                const newProfile = action.payload as Profile;
+                return (newProfile.height > 0 || newProfile.weight > 0) ? newProfile : state as Profile;
             default:
                 return state
         }

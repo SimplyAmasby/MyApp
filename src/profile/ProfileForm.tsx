@@ -17,8 +17,8 @@ export const ProfileForm = ({ dispatch, onSave, profile }: ProfileFormProps) => 
     }
     const imperialHeightComponent = useCallback(
         () => {
-            let feet = Math.floor(profile.height);
-            let inches = Math.round((profile.height % 1) * 12);
+            let feet = profile.height > 0 ? Math.floor(profile.height).toString() : '0';
+            let inches = profile.height > 0 ?  Math.round((profile.height % 1) * 12).toString() : '0';
             return (
                 <>
                     <View style={styles.field}>
@@ -30,7 +30,7 @@ export const ProfileForm = ({ dispatch, onSave, profile }: ProfileFormProps) => 
                                 payload: value
                             })}
                             style={styles.inputStyle}
-                            value={feet.toString() || ''}
+                            value={feet}
 
                         />
                         <Text>ft</Text>
@@ -44,7 +44,7 @@ export const ProfileForm = ({ dispatch, onSave, profile }: ProfileFormProps) => 
                                 payload: value
                             })}
                             style={styles.inputStyle}
-                            value={inches.toString()}
+                            value={inches}
                         />
                         <Text>in</Text>
                     </View>
